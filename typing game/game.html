@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <script>
+
+  </script>
+  <style>
+
+  </style>
+ </head>
+ <body>
+	
+  <h1>Timer: <span id="timer">0</span></h1>
+  <h1 style="font-family: monospace">Type dis --> <span id="heading">RAINBOW!!!</span></h1>
+  <input type="text" id="gameInput" onpaste="return false" onkeydown = "
+  	if (event.keyCode == 13 || event.keyCode == 32){
+		enteredWord = document.getElementById('gameInput').value;
+		//console.log(enteredWord);
+		if (enteredWord == currentWord) {
+			document.getElementById('gameInput').value = '';
+			wpm++;
+			cpm += currentWord.length;
+			generateNextWord();
+		}	
+	}
+  ">
+  <input type="button" id="startGame" value="Start Game" onclick="
+	document.getElementById('gameInput').value = '';
+	startGame(); 
+	document.getElementById('gameInput').select();
+  ">
+  <h2 id="wpm"></h2>
+  <h2 id="cpm"></h2>
+
+  <scrpit scr="words.js"></scrpit>
+  <script>
+	while (document.cookie.indexOf("name") == -1){
+		document.cookie = "name=" + prompt("Please enter your name: ");
+		var x = document.cookie;
+		console.log(x);
+	} // get cookies to work
+
+
+	rainbowText("#heading");
+
+	var game, enteredWord, currentWord, wpm = 0, cpm = 0;
+
+	function startGame(){
+		enteredWord = undefined, currentWord = undefined, wpm = 0, cpm = 0;
+		clearInterval(game);
+		generateNextWord();
+		var startTime = Date.now().valueOf();
+		document.querySelector("#wpm").innerHTML = "";
+		document.querySelector("#cpm").innerHTML = "";
+
+		game = setInterval(function(){
+			var gameTime = (Date.now().valueOf() - startTime); //in milliseconds
+			document.querySelector("#timer").innerHTML = gameTime/1000;
+			if (gameTime >= 60000) {
+				document.querySelector("#heading").innerHTML = "RAINBOW!!!";
+				document.querySelector("#timer").innerHTML = 60;
+				document.querySelector("#wpm").innerHTML = wpm+ " WPM";
+				document.querySelector("#cpm").innerHTML = cpm+ " CPM";
+				enteredWord = undefined, currentWord = undefined, wpm = 0, cpm = 0;
+				clearInterval(game);
+			}
+		}, 1);
+	}
+
+	function generateNextWord(){
+		currentWord = words[Math.floor(Math.random() * words.length)];
+		document.querySelector("#heading").innerHTML = currentWord;
+	}
+
+//	function noPaste() {
+//		
+//	}
+
+	function rainbowText(id) {
+		var headingEl = document.querySelector(id);
+		var r = 255;
+		var g = 0;
+		var b = 0;
+		setInterval(function(){
+			headingEl.style.color = "rgb("+r+","+g+","+b+")";
+			if (r == 255 && g != 255 && b == 0) g += 3;
+			else if (g == 255 && r != 0) r -= 3;
+			else if (g == 255 && b != 255) b += 3;
+			else if (b == 255 && g != 0) g -= 3;
+			else if (b == 255 && r != 255) r += 3;
+			else if (r == 255 && b != 0) b -= 3;
+			//console.log("rgb("+r+","+g+","+b+")");
+		}, 1);
+	}
+  </script>
+ </body>
+</html>
