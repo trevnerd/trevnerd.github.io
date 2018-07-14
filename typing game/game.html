@@ -34,16 +34,16 @@
 
   <scrpit scr="words.js"></scrpit>
   <script>
+	//  console.log("before cookie"); //CL
 	while (document.cookie.indexOf("name") == -1){
 		document.cookie = "name=" + prompt("Please enter your name: ");
-		var x = document.cookie;
-		console.log(x);
+		console.log(document.cookie);
 	} // get cookies to work
 
+	var game, enteredWord, currentWord, wpm = 0, cpm = 0;
 
 	rainbowText("#heading");
-
-	var game, enteredWord, currentWord, wpm = 0, cpm = 0;
+	startGame();
 
 	function startGame(){
 		enteredWord = undefined, currentWord = undefined, wpm = 0, cpm = 0;
