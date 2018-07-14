@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
  <head>
-  <script>
-
-  </script>
   <style>
 
   </style>
@@ -32,19 +29,19 @@
   <h2 id="wpm"></h2>
   <h2 id="cpm"></h2>
 
-  <scrpit scr="words.js"></scrpit>
+  <script src="words.js"></script>
   <script>
-	//  console.log("before cookie"); //CL
+	console.log("before cookie"); //CL
 	while (document.cookie.indexOf("name") == -1){
 		document.cookie = "name=" + prompt("Please enter your name: ");
-		console.log(document.cookie);
+		alert(document.cookie);
 	} // get cookies to work
+
+	rainbowText("#heading");
 
 	var game, enteredWord, currentWord, wpm = 0, cpm = 0;
 
-	rainbowText("#heading");
-	startGame();
-
+	
 	function startGame(){
 		enteredWord = undefined, currentWord = undefined, wpm = 0, cpm = 0;
 		clearInterval(game);
